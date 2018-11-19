@@ -13,7 +13,8 @@ class VentasController extends Controller
      */
     public function index()
     {
-        //
+      $ventas=\App\Venta::all();
+     return view('ventas/index',compact('ventas'));
     }
 
     /**
@@ -32,10 +33,21 @@ class VentasController extends Controller
      * @param  \Illuminate\Http\Request  $request
      * @return \Illuminate\Http\Response
      */
-    public function store(Request $request)
-    {
-        //
-    }
+     public function store(Request $request)
+     {
+         if($request->hasfile('filename'))
+          {
+             $file = $request->file('filename');
+             $name=time().$file->getClientOriginalName();
+             $file->move(public_path().'/images/', $name);
+          }
+         $venta= new \App\Venta;
+         $venta->cliente=$request->get('cliente');
+         $venta->date=$request->get('date');
+         $venta->save();
+
+         return redirect('venta')->with('success', 'Information has been added');
+     }
 
     /**
      * Display the specified resource.
@@ -77,8 +89,10 @@ class VentasController extends Controller
      * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-    public function destroy($id)
-    {
-        //
-    }
+     public function destroy($id)
+     {
+         $venta = \App\Venta::find($id);
+         $venta->delete();
+         return redirect('venta')->with('success','Information has been  deleted');
+     }
 }

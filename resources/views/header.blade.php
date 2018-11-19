@@ -22,31 +22,24 @@
         <a class="nav-link" href="{{action('CarroController@index')}}">CARROS</a>
       </li>
       <li class="nav-item">
-        <a class="nav-link" href="">Combos</a>
+        <a class="nav-link" href="{{action('VentasController@index')}}">Ventas</a>
       </li>
       <li class="nav-item">
-          <a class="nav-link" href="">Compras</a>
+        <a class="nav-link" href="{{action('CarroController@create')}}">AgregarCarro</a>
+      </li>
+      <li class="nav-item">
+        <a class="nav-link" href="{{action('VentasController@create')}}">AgregarVenta</a>
       </li>
 
       @if (Auth::guest())
       <li class="nav-item">
-          <a class="nav-link" href="">login</a>
+          <a class="nav-link" href="{{action('CarroController@index')}}">login</a>
       </li>
       @else
-            <a class="dropdown-item" href=""
-            onclick="event.preventDefault();
-                          document.getElementById('logout-form').submit();">
-            {{ __('Logout') }}
-        </a>
-
-        <form id="logout-form" action="" method="POST" style="display: none;">
-            @csrf
-        </form>
+      <li class="nav-item">
+          <a class="nav-link" href="{{action('HomeController@index')}}">LogOut</a>
+      </li>
       @endif
-
-
-
-
 
     </ul>
 
